@@ -8,7 +8,8 @@ Imports:
     bibtex,
     brew,
     plyr,
-    tools
+    tools,
+    purrr
 License: GPL-2
 Type: Package
 Version: 0.1
