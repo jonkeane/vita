@@ -22,7 +22,7 @@ texCategories <- list(
   "TechReport" = "Technical reports" , 
   "Misc" = list("Conference presentations" = list("howpublished" = "conference presentation"),
                 "Posters" = list("howpublished" = "poster"),
-                "Invited talks" = list("howpublished" = "invited talk"),
+                "Invited talks" = list("howpublished" = c("invited talk", "workshop")),
                 "Software" = list("howpublished" = "software"))
   )
 
@@ -35,7 +35,7 @@ webCategories <- list(
   "MastersThesis" = "Theses",
   "PhdThesis" = "Theses",
   "TechReport" = "TechReport" , 
-  "Misc" = list("PresPost" = list("howpublished" = c("conference presentation", "poster", "invited talk")), "Software" = list("howpublished" = c("software")))
+  "Misc" = list("PresPost" = list("howpublished" = c("conference presentation", "poster", "invited talk", "workshop")), "Software" = list("howpublished" = c("software")))
   )
   
 groupIDr <- function(bib, bibTyper) {
