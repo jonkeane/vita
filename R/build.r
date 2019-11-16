@@ -49,9 +49,7 @@ make_vita <- function(bib = "~/Dropbox/web/vitaKeane/keane.bib", path = "~/Dropb
   }
 
   # extracts file locations from bibdesk hashes, and copies the file to path
-  deBibdesk(bib)
-
-  me <- bibtex::read.bib("me.bib", "UTF-8")
+  me <- deBibdesk(bibtex::read.bib(bib, "UTF-8"), dirname(bib))
 
   # remove entries with :noweb at the end of their keys
   me <- purrr::discard(me, function(x) grepl(":noweb$", x$key))
@@ -120,9 +118,9 @@ make_vita <- function(bib = "~/Dropbox/web/vitaKeane/keane.bib", path = "~/Dropb
 
 copyPDFs <- function(entry){
   if ({!file.exists(str_c("pdfs/", entry$key, ".pdf"))}&{!is.null(entry$file)}){
-      print("file doesn't exist and moving")
+      message("file doesn't exist and moving")
       file = shQuote(entry$file)
-      print(file)
+      message(file)
       cmd <- str_c("cp ",file, " pdfs/", entry$key, ".pdf")
       lapply(cmd, system)
   }
@@ -177,15 +175,16 @@ clean_bib <- function(entry) {
   entry
 }
 
-deBibdesk <- function(bib) {
-
-  bibFile <- bib
-  binPath <- system.file()
-  binPath <- "~/Dropbox/web/vita"
-
-  cmd <- str_c(binPath,"/exec/convertBibDeskLinks ", bibFile, " me.bib")
-
-  lapply(cmd, system)
-
-  invisible()
+deBibdesk <- function(bib, bib_path) {
+  bib <- lapply(bib, function(item) {
+    if (!is.null(item$`bdsk-file-1`)){
+      plist <- plist:::int_get_plist(openssl::base64_decode(item$`bdsk-file-1`))
+      rel_path <- XML::readKeyValueDB(plist)$relativePath
+      
+      item$file <- file.path(bib_path, rel_path)
+    }
+    return(item)
+  })
+  
+  return(bib)
 }

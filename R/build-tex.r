@@ -11,11 +11,11 @@ make_cvtex <- function(bib = "~/Dropbox/web/vitaKeane/keane.bib", path = "~/Drop
   old <- setwd(path)
   on.exit(setwd(old))
 
+  me <- bibtex::read.bib(bib, "UTF-8")
+  
   if (clean){
-    deBibdesk(bib) # only necesary if running alone.
+    me <- deBibdesk(me, dirname(bib)) # only necesary if running alone.
   }
-
-  me <- bibtex::read.bib("me.bib", "UTF-8")
 
   # remove entries with :nocv at the end of their keys
   me <- purrr::discard(me, function(x) grepl(":nocv$", x$key))

@@ -10,6 +10,7 @@ Imports:
     plyr,
     tools,
     purrr
+Remotes: hrbrmstr/plist
 License: GPL-2
 Type: Package
 Version: 0.1

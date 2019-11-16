@@ -1,5 +1,3 @@
-# entries <- read.bib("~/Dropbox/web/vitaWeb/me.bib", "UTF-8") # for testing
-
 sortByYear <- function(entries) {
   year <- vapply(entries, function(x) x$year, FUN.VALUE = character(1))
   rev(split(entries, year))

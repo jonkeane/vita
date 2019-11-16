@@ -1,5 +1,3 @@
-# me <- read.bib("~/Dropbox/web/vitaWeb/me.bib", "UTF-8") # for testing
-
 #  a list that assigns bibentries to different categories based primerly on their bibtype, although any combination can be used. Additionally, a bibtag ban be paired with a vector of different values, any one of these will be accepted. the syntax is:
 #
 #  "[bibtextype]" = "category name" # for simple all bibtextypes in one category
